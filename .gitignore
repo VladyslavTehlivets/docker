@@ -1,0 +1,4 @@
+api-app/node_modules
+ng-app/node_modules
+.idea
+.vs
