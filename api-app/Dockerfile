@@ -1,7 +1,5 @@
 FROM node
 
-ENV PORT=3333
-
 # Create app directory
 WORKDIR /usr/src/app
 
@@ -9,11 +7,11 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 RUN npm install
-# If you are building your code for production
-# RUN npm install --only=production
 
 # Bundle app source
 COPY . .
 
+# Expose port 3333
 EXPOSE 3333
+
 CMD [ "npm", "start" ]
