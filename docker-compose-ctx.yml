@@ -17,10 +17,25 @@ services:
     hostname: api.dev
     ports:
       - "3333:3333"
+    environment:
+      - PORT=3333
+      - MONGO_HOST=mongodb://mongo.dev:27017/mydatabase
     networks:
       dcc-net:
         aliases:
           - api.dev
+    depends_on:
+      - mongodb
+
+  mongo:
+    image: mongo:latest
+    hostname: mongo.dev
+    ports:
+      - "27019:27017"
+    networks:
+      dc-net:
+        aliases:
+          - mongo.dev
 
 networks:
   dcc-net:
