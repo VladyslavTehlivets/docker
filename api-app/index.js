@@ -2,8 +2,10 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var morgan = require("morgan");
 var routes = require("./routes.js");
+var db = require("./db.js");
 
 const PORT = process.env.PORT || 3333;
+const MONGO_HOST = process.env.MONGO_HOST || "mongodb://localhost:27017/mydatabase";
 
 var app = express();
 
@@ -20,6 +22,13 @@ app.use(morgan("combined"));
 
 routes(app);
 
-var server = app.listen(PORT, function () {
-    console.log("app running on port.", server.address().port);
+db.connect(MONGO_HOST, function(err) {
+  if (err) {
+    console.log("Unable to connect to Mongo.");
+    process.exit(1);
+  } else {
+    app.listen(PORT, function () {
+        console.log("App running on port: ", server.address().port);
+    });
+  }
 });
