@@ -1,0 +1,55 @@
+version: '3'
+services:
+  ngapp:
+    image: siata/ng-app
+    deploy:
+      replicas: 5   # Run 5 instances
+      resources:
+        limits:
+          cpus: "0.1" # 10% CPU
+          memory: 50M # 50MB RAM
+      restart_policy:
+        condition: on-failure # Restart containers if one fails
+    hostname: ng.dev
+    ports:
+      - "7000:80"
+    networks:
+      dc-net:
+        aliases:
+          - ng.dev
+
+  apiapp:
+    image: siata/api-app
+    deploy:
+      replicas: 4
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 100M
+      restart_policy:
+        condition: on-failure
+    hostname: api.dev
+    ports:
+      - "3333:3333"
+    environment:
+      - PORT=3333
+      - MONGO_HOST=mongodb://mongo.dev:27017/mydatabase
+    networks:
+      dc-net:
+        aliases:
+          - api.dev
+    depends_on:
+      - mongodb
+      
+   mongo:
+    image: mongo:latest
+    hostname: mongo.dev
+    ports:
+      - "27019:27017"
+    networks:
+      dc-net:
+        aliases:
+          - mongo.dev
+
+networks:
+  dc-net:
