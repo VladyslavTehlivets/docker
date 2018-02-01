@@ -41,7 +41,7 @@ services:
     depends_on:
       - mongodb
       
-   mongo:
+  mongo:
     image: mongo:latest
     hostname: mongo.dev
     ports:
@@ -50,6 +50,17 @@ services:
       dc-net:
         aliases:
           - mongo.dev
+          
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      dc-net:
+        aliases:
+          - visualizer.dev
 
 networks:
   dc-net:
