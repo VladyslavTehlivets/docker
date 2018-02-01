@@ -5,7 +5,7 @@ var routes = require("./routes.js");
 var db = require("./db.js");
 
 const PORT = process.env.PORT || 3333;
-const MONGO_HOST = process.env.MONGO_HOST || "mongodb://localhost:27017/mydatabase";
+const MONGO_HOST = process.env.MONGO_HOST || "mongodb://mongo.dev:27017/mydatabase";
 
 var app = express();
 
