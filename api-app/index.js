@@ -1,5 +1,6 @@
 var express = require("express");
 var bodyParser = require("body-parser");
+var morgan = require("morgan");
 var routes = require("./routes.js");
 
 const PORT = process.env.PORT || 3333;
@@ -14,6 +15,8 @@ app.use(function(req, res, next) {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(morgan("combined"));
 
 routes(app);
 
