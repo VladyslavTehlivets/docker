@@ -19,13 +19,14 @@ services:
       - "3333:3333"
     environment:
       - PORT=3333
-      - MONGO_HOST=mongodb://mongo.dev:27017/mydatabase
+      - MONGO_HOST=mongodb://mongo.dev:27017/
+      - MONGO_DB_NAME=mydatabase
     networks:
       dcc-net:
         aliases:
           - api.dev
     depends_on:
-      - mongodb
+      - mongo
 
   mongo:
     image: mongo:latest

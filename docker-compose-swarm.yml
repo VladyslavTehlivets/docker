@@ -33,13 +33,14 @@ services:
       - "3333:3333"
     environment:
       - PORT=3333
-      - MONGO_HOST=mongodb://mongo.dev:27017/mydatabase
+      - MONGO_HOST=mongodb://mongo.dev:27017/
+      - MONGO_DB_NAME=mydatabase
     networks:
       dc-net:
         aliases:
           - api.dev
     depends_on:
-      - mongodb
+      - mongo
       
   mongo:
     image: mongo:latest
@@ -54,7 +55,7 @@ services:
   visualizer:
     image: dockersamples/visualizer:stable
     ports:
-      - "8080:8080"
+      - "8088:8080"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
     networks:
