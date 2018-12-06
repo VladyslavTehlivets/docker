@@ -13,3 +13,6 @@ docker run -d --name mongo-32 mongo:3.2
 docker run --name mypostgres -p 5432:5432 -e POSTGRES_PASSWORD=postgres -d postgres
 
 
+docker image ls
+
+docker container ls --all
